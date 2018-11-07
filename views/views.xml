@@ -131,6 +131,38 @@
     <record model="ir.actions.server" id="pos_voucher.action_server">
       <field name="name">pos_voucher server</field>
       <field name="model_id" ref="model_pos_voucher_pos_voucher"/>
+=======
+  <data>
+     explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="vouchers_pos.list">
+      <field name="name">vouchers_pos list</field>
+      <field name="model">vouchers_pos.vouchers_pos</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="vouchers_pos.action_window">
+      <field name="name">vouchers_pos window</field>
+      <field name="res_model">vouchers_pos.vouchers_pos</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="vouchers_pos.action_server">
+      <field name="name">vouchers_pos server</field>
+      <field name="model_id" ref="model_vouchers_pos_vouchers_pos"/>
+>>>>>>> 38804a03d6ffdf0707a75088965937efa787611a
       <field name="state">code</field>
       <field name="code">
         action = {
@@ -139,6 +171,7 @@
           "res_model": self._name,
         }
       </field>
+<<<<<<< HEAD
     </record> -->
     
 
@@ -159,5 +192,5 @@
     <menuitem name="Server to list" id="pos_voucher" parent="pos_voucher.menu_2"
               action="pos_voucher.action_server"/>
      -->
-   --></data>
+   </data>
 </odoo>
