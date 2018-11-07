@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="vouchers_pos.list">
+      <field name="name">vouchers_pos list</field>
+      <field name="model">vouchers_pos.vouchers_pos</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="vouchers_pos.action_window">
+      <field name="name">vouchers_pos window</field>
+      <field name="res_model">vouchers_pos.vouchers_pos</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="vouchers_pos.action_server">
+      <field name="name">vouchers_pos server</field>
+      <field name="model_id" ref="model_vouchers_pos_vouchers_pos"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="vouchers_pos" id="vouchers_pos.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="vouchers_pos.menu_1" parent="vouchers_pos.menu_root"/>
+    <menuitem name="Menu 2" id="vouchers_pos.menu_2" parent="vouchers_pos.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="vouchers_pos.menu_1_list" parent="vouchers_pos.menu_1"
+              action="vouchers_pos.action_window"/>
+    <menuitem name="Server to list" id="vouchers_pos" parent="vouchers_pos.menu_2"
+              action="vouchers_pos.action_server"/>
+    -->
+  </data>
+</odoo>
