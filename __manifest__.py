@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "pos_voucher",
+    'name': "POS VOUCHERS",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
