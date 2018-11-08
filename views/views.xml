@@ -48,6 +48,12 @@
                 <field name="qty"/>
               </tree>
             </field>
+            <field name="company_balance" widget="one2many_list">
+              <tree editable="bottom">
+                <field name="balance"/>
+                <field name="company_id"/>
+              </tree>
+            </field>
           </sheet>
         </form>
       </field>

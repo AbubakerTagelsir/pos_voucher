@@ -11,6 +11,7 @@ class pos_voucher(models.Model):
 	stock_lines = fields.One2many('stock.line', 'pos_id', "Lines")
 	trans_history = fields.One2many('pos.trans', 'pos_id')
 	company = fields.One2many('stock.value','pos_id')
+	company_balance = fields.One2many('balance.value','pos_id')
 
 
 	@api.onchange('stock_lines')
@@ -33,6 +34,10 @@ class pos_voucher(models.Model):
 			p.balance = total_value
 
 
+
+
+
+
 	@api.onchange('stock_lines')
 	def get_company_stock(self):
 		comp = self.env['company.company'].search([])
@@ -48,6 +53,24 @@ class pos_voucher(models.Model):
 		print(values)
 		for line in self.company:
 			line.stock = values[line.company_id.id]
+
+
+
+
+	@api.onchange('trans_history')
+	def get_company_balance(self):
+		comp = self.env['company.company'].search([])
+		for c in comp:
+			comp_total = 0
+		for p in self:
+			total_value = 0
+			for line in p.trans_history:
+				if line.trans_type == 'in':
+					total_value += line.qty
+				else:
+					total_value -= line.qty
+			p.balance = total_value
+
 
 	# @api.onchange('stock_lines','company')
 	# def _get_company_stock(self):
@@ -98,6 +121,13 @@ class StockValue(models.Model):
 	company_id = fields.Many2one('company.company')
 	stock = fields.Float()	
 
+
+
+class BalanceValue(models.Model):
+	_name = 'balance.value'
+	pos_id = fields.Many2one('pos_voucher.pos_voucher')
+	company_id = fields.Many2one('company.company')
+	balance = fields.Float()	
 
 	
 
