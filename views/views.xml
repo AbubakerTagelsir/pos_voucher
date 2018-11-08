@@ -19,6 +19,9 @@
       <field name="model">pos_voucher.pos_voucher</field>
       <field name="arch" type="xml">
         <form>
+          <header>
+            <button name="get_company_stock" string="Test" type='object'/>
+          </header>
           <sheet>
             <group>
               

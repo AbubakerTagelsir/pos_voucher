@@ -34,15 +34,18 @@ class pos_voucher(models.Model):
 
 
 	@api.onchange('stock_lines')
-	def _get_company_stock(self):
+	def get_company_stock(self):
 		comp = self.env['company.company'].search([])
 		values = {}
 		for c in comp:
 			comp_total = 0
 			for sl in self.stock_lines:
+				print(sl.company_id.id,c.id)
 				if sl.company_id.id == c.id:
 					comp_total += sl.qty * sl.card_id.value
+					print(comp_total)
 			values[c.id] = comp_total
+		print(values)
 		for line in self.company:
 			line.stock = values[line.company_id.id]
 
@@ -103,7 +106,7 @@ class StockLine(models.Model):
 	card_id = fields.Many2one('card.card')
 	qty = fields.Integer("Quantity")
 	pos_id = fields.Many2one('pos_voucher.pos_voucher')
-	company_id = fields.Many2one('company.company')
+	company_id = fields.Many2one(related='card_id.comp_name')
 
 
 class Transaction(models.Model):
