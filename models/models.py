@@ -45,12 +45,9 @@ class pos_voucher(models.Model):
 		for c in comp:
 			comp_total = 0
 			for sl in self.stock_lines:
-				print(sl.company_id.id,c.id)
 				if sl.company_id.id == c.id:
 					comp_total += sl.qty * sl.card_id.value
-					print(comp_total)
 			values[c.id] = comp_total
-		print(values)
 		for line in self.company:
 			line.stock = values[line.company_id.id]
 
@@ -60,17 +57,18 @@ class pos_voucher(models.Model):
 	@api.onchange('trans_history')
 	def get_company_balance(self):
 		comp = self.env['company.company'].search([])
-		for c in comp:
-			comp_total = 0
-		for p in self:
+		res = {}
+		for p in comp:
 			total_value = 0
-			for line in p.trans_history:
-				if line.trans_type == 'in':
+			for line in self.trans_history:
+				if line.trans_type == 'in' and line.company_id.id == p.id:
 					total_value += line.qty
-				else:
+				elif line.trans_type == 'out' and line.company_id.id == p.id:
 					total_value -= line.qty
-			p.balance = total_value
-
+			res[p.id] = total_value
+		print(res)
+		for b in self.company_balance:
+			b.balance = res[b.company_id.id]
 
 	# @api.onchange('stock_lines','company')
 	# def _get_company_stock(self):
@@ -144,4 +142,5 @@ class Transaction(models.Model):
 	trans_type = fields.Selection([('in', "IN"), ('out', "OUT")], default='out', string="Transaction Type")
 	pos_id = fields.Many2one('pos_voucher.pos_voucher', "POS")
 	qty = fields.Integer("Quantity")
+	company_id = fields.Many2one('company.company', "Company")
 

@@ -20,7 +20,7 @@
       <field name="arch" type="xml">
         <form>
           <header>
-            <button name="get_company_stock" string="Test" type='object'/>
+            <button name="get_company_balance" string="Test" type='object'/>
           </header>
           <sheet>
             <group>
@@ -36,7 +36,7 @@
                 <field name="stock"/>
               </tree>
             </field>
-            <field name="stock_lines" widget="one2many_list">
+            <!-- <field name="stock_lines" widget="one2many_list">
               <tree editable="bottom">
                 <field name="card_id"/>
                 <field name="qty"/>
@@ -44,14 +44,15 @@
             </field>
             <field name="trans_history" widget="one2many_list">
               <tree editable="bottom">
+                <field name="company_id"/>
                 <field name="trans_type"/>
                 <field name="qty"/>
               </tree>
-            </field>
+            </field> -->
             <field name="company_balance" widget="one2many_list">
               <tree editable="bottom">
-                <field name="balance"/>
                 <field name="company_id"/>
+                <field name="balance"/>
               </tree>
             </field>
           </sheet>
