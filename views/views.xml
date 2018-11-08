@@ -65,7 +65,7 @@
                 <field name="stock"/>
               </tree>
             </field>
-            <field name="stock_lines" widget="one2many_list">
+            <!-- <field name="stock_lines" widget="one2many_list">
               <tree editable="bottom">
                 <field name="card_id"/>
                 <field name="qty"/>
@@ -76,7 +76,7 @@
                 <field name="trans_type"/>
                 <field name="qty"/>
               </tree>
-            </field>
+            </field> -->
           </sheet>
         </form>
       </field>
