@@ -1,0 +1,205 @@
+<odoo>
+  <data><!-- 
+    <!- explicit list view definition -->
+     <!-- pos views -->
+    <record model="ir.ui.view" id="pos_voucher.list">
+      <field name="name">POS lists</field>
+      <field name="model">pos_voucher.pos_voucher</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" string="Full Name"/>
+          <field name="stock"/>
+          <field name="balance"/>
+        </tree>
+      </field>
+    </record>
+    
+    <record model="ir.ui.view" id="pos_voucher.form">
+      <field name="name">POS lists</field>
+      <field name="model">pos_voucher.pos_voucher</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+            <button name="get_company_stock" string="Test" type='object'/>
+          </header>
+          <sheet>
+            <group>
+              
+              <field name="name" string="Full Name"/>
+              <field name="stock" readonly="1"/>
+              <field name="balance" readonly="1"/>
+              <field name="phonenumber"/>
+            </group>
+            <field name="company" widget="one2many_list">
+              <tree editable="bottom">
+                <field name="company_id"/>
+                <field name="stock"/>
+              </tree>
+            </field>
+            <field name="stock_lines" widget="one2many_list">
+              <tree editable="bottom">
+                <field name="card_id"/>
+                <field name="qty"/>
+              </tree>
+            </field>
+            <field name="trans_history" widget="one2many_list">
+              <tree editable="bottom">
+                <field name="trans_type"/>
+                <field name="qty"/>
+              </tree>
+            </field>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <!-- card views -->
+    <record model="ir.ui.view" id="card_list_view">
+      <field name="name">Cards lists</field>
+      <field name="model">card.card</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" string="Full Name"/>
+          <field name="comp_name"/>
+          <field name="value"/>
+        </tree>
+      </field>
+    </record>
+    
+    <record model="ir.ui.view" id="card_form">
+      <field name="name">Card</field>
+      <field name="model">card.card</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+          <field name="name" string="Full Name"/>
+          <field name="comp_name" widget="selection"/>
+          <field name="value"/>
+            </group>
+            
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <!-- company views -->
+    <record model="ir.ui.view" id="comp_list">
+      <field name="name">Company lists</field>
+      <field name="model">company.company</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" string="Full Name"/>
+          <field name="imag"/>
+        </tree>
+      </field>
+    </record>
+    
+    <record model="ir.ui.view" id="comp_form">
+      <field name="name">Comapny</field>
+      <field name="model">company.company</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              
+              <field name="name" string="Full Name"/>
+              <field name="imag" widget="image"/>
+            </group>
+            
+          </sheet>
+        </form>
+      </field>
+    </record>
+    
+
+    <!-- actions opening views on models -->
+    
+    <record model="ir.actions.act_window" id="pos_voucher.action_window">
+      <field name="name">pos_voucher window</field>
+      <field name="res_model">pos_voucher.pos_voucher</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    
+    <record model="ir.actions.act_window" id="comapny_action_window">
+      <field name="name">Company window</field>
+      <field name="res_model">company.company</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    
+    <record model="ir.actions.act_window" id="card_action_window">
+      <field name="name">Card window</field>
+      <field name="res_model">card.card</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    
+
+    <!-- server action to the one above -->
+<!--     
+    <record model="ir.actions.server" id="pos_voucher.action_server">
+      <field name="name">pos_voucher server</field>
+      <field name="model_id" ref="model_pos_voucher_pos_voucher"/>
+=======
+  <data>
+     explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="vouchers_pos.list">
+      <field name="name">vouchers_pos list</field>
+      <field name="model">vouchers_pos.vouchers_pos</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="vouchers_pos.action_window">
+      <field name="name">vouchers_pos window</field>
+      <field name="res_model">vouchers_pos.vouchers_pos</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="vouchers_pos.action_server">
+      <field name="name">vouchers_pos server</field>
+      <field name="model_id" ref="model_vouchers_pos_vouchers_pos"/>
+>>>>>>> 38804a03d6ffdf0707a75088965937efa787611a
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+<<<<<<< HEAD
+    </record> -->
+    
+
+    <!-- Top menu item -->
+    
+    <menuitem name="POS" id="pos_voucher.menu_root" action="pos_voucher.action_window"/>
+    
+    <!-- menu categories -->
+    
+    <menuitem name="Points of Sales" id="pos_voucher.name" parent="pos_voucher.menu_root"  action="pos_voucher.action_window"/>
+    <menuitem name="Cards" id="card_menu" parent="pos_voucher.menu_root"  action="card_action_window"/>
+    <menuitem name="Companies" id="comp_menu" parent="pos_voucher.menu_root"  action="comapny_action_window"/>
+    
+    <!-- actions -->
+    <!-- 
+    <menuitem name="List" id="pos_voucher.menu_1_list" parent="pos_voucher.menu_1"
+              action="pos_voucher.action_window"/>
+    <menuitem name="Server to list" id="pos_voucher" parent="pos_voucher.menu_2"
+              action="pos_voucher.action_server"/>
+     -->
+   </data>
+</odoo>
