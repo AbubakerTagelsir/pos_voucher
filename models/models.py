@@ -2,6 +2,12 @@
 
 from odoo import models, fields, api
 
+class pos_voucher(models.TransientModel):
+	_name = 'pos_voucher.test'
+
+	name = fields.Char()	
+
+
 class pos_voucher(models.Model):
 	_name = 'pos_voucher.pos_voucher'	
 	name = fields.Char()
@@ -11,6 +17,8 @@ class pos_voucher(models.Model):
 	stock_lines = fields.One2many('stock.line', 'pos_id', "Lines")
 	trans_history = fields.One2many('pos.trans', 'pos_id')
 	company = fields.One2many('stock.value','pos_id')
+
+
 
 
 	@api.onchange('stock_lines')
@@ -40,34 +48,22 @@ class pos_voucher(models.Model):
 		for c in comp:
 			comp_total = 0
 			for sl in self.stock_lines:
-				print(sl.company_id.id,c.id)
 				if sl.company_id.id == c.id:
 					comp_total += sl.qty * sl.card_id.value
-					print(comp_total)
 			values[c.id] = comp_total
-		print(values)
 		for line in self.company:
 			line.stock = values[line.company_id.id]
 
-	# @api.onchange('stock_lines','company')
-	# def _get_company_stock(self):
-	# 	companies = set()
-	# 	for record in self:
-	# 		companies.add(record.stock_lines.company_id.name)
-		
-	# 	# for p in self.stock_lines:
-	# 	# 	if p.company_id not in companies:
-	# 	# 		companies.append(p.company_id)
 
-	# 	comp_balance = []
-	# 	for c in companies:
-	# 		comp_total = 
-	# 		for l in self.stock_lines:
-	# 			if l.company_id == c:
-	# 				comp_total+= l.qty * l.card_id.value
+	# def get_stock_details(self):
+	# 	comp = self.env['company.company'].search([])
+	# 	for c in comp:
+	# 		qty * sl.card_id.value
+	# 		values[c.id] = comp_total
+	# 	for line in self.company:
 
-	# 		comp_balance.append(comp_total)
-	# 	return comp_balance
+
+
 			
 
 
