@@ -22,11 +22,17 @@
           <sheet>
             <group>
               
-            <field name="name" string="Full Name"/>
-            <field name="stock" readonly="1"/>
-            <field name="balance" readonly="1"/>
-            <field name="phonenumber"/>
+              <field name="name" string="Full Name"/>
+              <field name="stock" readonly="1"/>
+              <field name="balance" readonly="1"/>
+              <field name="phonenumber"/>
             </group>
+            <field name="company" widget="one2many_list">
+              <tree editable="bottom">
+                <field name="company_id"/>
+                <field name="stock"/>
+              </tree>
+            </field>
             <field name="stock_lines" widget="one2many_list">
               <tree editable="bottom">
                 <field name="card_id"/>
