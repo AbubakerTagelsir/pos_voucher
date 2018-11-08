@@ -2,6 +2,12 @@
 
 from odoo import models, fields, api
 
+class pos_voucher(models.TransientModel):
+	_name = 'pos_voucher.test'
+
+	name = fields.Char()	
+
+
 class pos_voucher(models.Model):
 	_name = 'pos_voucher.pos_voucher'	
 	name = fields.Char()
@@ -12,6 +18,8 @@ class pos_voucher(models.Model):
 	trans_history = fields.One2many('pos.trans', 'pos_id')
 	company = fields.One2many('stock.value','pos_id')
 	company_balance = fields.One2many('balance.value','pos_id')
+
+
 
 
 	@api.onchange('stock_lines')
@@ -89,6 +97,15 @@ class pos_voucher(models.Model):
 
 	# 		comp_balance.append(comp_total)
 	# 	return comp_balance
+	# def get_stock_details(self):
+	# 	comp = self.env['company.company'].search([])
+	# 	for c in comp:
+	# 		qty * sl.card_id.value
+	# 		values[c.id] = comp_total
+	# 	for line in self.company:
+
+
+
 			
 
 

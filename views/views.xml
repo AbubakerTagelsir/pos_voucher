@@ -1,6 +1,26 @@
 <odoo>
   <data><!-- 
     <!- explicit list view definition -->
+    <record model="ir.actions.act_window" id="stock_line_action">
+      <field name="name">POS Stock</field>
+      <field name="res_model">stock.line</field>
+      <field name="view_type">tree</field>
+      <field name="view_mode">list</field>
+      <field name="target">new</field>
+      <field name="domain">[('id', '=',default_pos_id)]</field>
+     
+    </record>
+
+    <record model="ir.actions.act_window" id="pos_voucher.test">
+      <field name="name">POS Stock</field>
+      <field name="res_model">pos_voucher.test</field>
+      <field name="view_type">tree</field>
+      <field name="view_mode">list</field>
+      <field name="target">new</field>
+      <field name="domain">[('id', '=',default_pos_id)]</field>
+     
+    </record>
+
      <!-- pos views -->
     <record model="ir.ui.view" id="pos_voucher.list">
       <field name="name">POS lists</field>
@@ -23,8 +43,18 @@
             <button name="get_company_balance" string="Test" type='object'/>
           </header>
           <sheet>
+            <div name="buttons" class="oe_right oe_button_box">
+              <button id="button_id" 
+                name="%(stock_line_action)d"
+                type="action"
+                class="oe_stat_button"
+                icon="fa-tasks"
+                help="view stock info"
+                context="{'default_pos_id':active_id}">
+                <field name="stock" string="Stock Value" widget="statinfo"/>
+              </button>
+            </div>
             <group>
-              
               <field name="name" string="Full Name"/>
               <field name="stock" readonly="1"/>
               <field name="balance" readonly="1"/>
@@ -49,12 +79,15 @@
                 <field name="qty"/>
               </tree>
             </field> -->
+<<<<<<< HEAD
             <field name="company_balance" widget="one2many_list">
               <tree editable="bottom">
                 <field name="company_id"/>
                 <field name="balance"/>
               </tree>
             </field>
+=======
+>>>>>>> 344f5b88442f9a7d7e4eaf493aba2221caea4dd4
           </sheet>
         </form>
       </field>
@@ -117,7 +150,21 @@
       </field>
     </record>
     
-
+    <!-- stock line views -->
+    <record model="ir.ui.view" id="stockline_list">
+      <field name="name">Stock Lines lists</field>
+      <field name="model">stock.line</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="company_id" string="company"/>
+          <field name="card_id" string="Card"/>
+          <field name="qty"/>
+        </tree>
+      </field>
+    </record>
+    
+    
+    
     <!-- actions opening views on models -->
     
     <record model="ir.actions.act_window" id="pos_voucher.action_window">
@@ -126,6 +173,7 @@
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
     </record>
+
     
     <record model="ir.actions.act_window" id="comapny_action_window">
       <field name="name">Company window</field>
