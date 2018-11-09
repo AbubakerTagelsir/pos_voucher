@@ -18,6 +18,7 @@ class pos_voucher(models.Model):
 	trans_history = fields.One2many('pos.trans', 'pos_id')
 	company = fields.One2many('stock.value','pos_id')
 	company_balance = fields.One2many('balance.value','pos_id')
+	
 
 
 
