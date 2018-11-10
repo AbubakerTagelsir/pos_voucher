@@ -1,12 +1,9 @@
-# -*- coding: utf-8 -*-
-
 from odoo import models, fields, api
 
 class pos_voucher(models.TransientModel):
 	_name = 'pos_voucher.test'
 
 	name = fields.Char()	
-
 
 class pos_voucher(models.Model):
 	_name = 'pos_voucher.pos_voucher'	
@@ -18,11 +15,34 @@ class pos_voucher(models.Model):
 	trans_history = fields.One2many('pos.trans', 'pos_id')
 	company = fields.One2many('stock.value','pos_id')
 	company_balance = fields.One2many('balance.value','pos_id')
-	
 
-
-
-
+	@api.multi
+	def update_balance(self):
+		view_id = self.env.ref('pos_voucher.balanceTransition_list').id
+		return {'name':'update balance',
+	'view_type':'tree',
+	'view_mode':'list',
+	'res_model':'pos.trans',
+	'view_id':False,
+	'type':'ir.actions.act_window',
+	'res_id':self.id,
+	'target':'new'}
+	    
+	@api.multi
+	def update_stock(self):
+		# view_id = self.env.ref('pos_voucher.stockline_form').id
+		return {
+            'name':'update balance',
+            'view_type':'tree',
+            'view_mode':'tree',
+            'res_model':'stock.line',
+            'model':'ir.actions.act_window',
+            'type':'ir.actions.act_window',
+            'res_id':self.id,
+            'target':'new'
+        }
+		
+		
 	@api.onchange('stock_lines')
 	def _get_stock_count(self):
 		for p in self:
@@ -41,12 +61,20 @@ class pos_voucher(models.Model):
 				else:
 					total_value -= line.qty
 			p.balance = total_value
+ 
+	# def update_stock(self):7
+	# 	company_obj= self.env['company.company']
+	# 	company_list=company_obj.search([])
 
+	# 	card_obj= self.env['card.card']
+	# 	card_list=card_obj.search([])
 
+	# 	# amount
 
-
-
-
+	# 	return 1
+	# def update_balance(self):
+	# 	return 1
+    
 	@api.onchange('stock_lines')
 	def get_company_stock(self):
 		comp = self.env['company.company'].search([])
@@ -59,9 +87,6 @@ class pos_voucher(models.Model):
 			values[c.id] = comp_total
 		for line in self.company:
 			line.stock = values[line.company_id.id]
-
-
-
 
 	@api.onchange('trans_history')
 	def get_company_balance(self):
@@ -104,15 +129,7 @@ class pos_voucher(models.Model):
 	# 		qty * sl.card_id.value
 	# 		values[c.id] = comp_total
 	# 	for line in self.company:
-
-
-
-			
-
-
-
-
-		                       
+	                       
 
 class card(models.Model):
 	_name = 'card.card'
@@ -126,10 +143,6 @@ class company(models.Model):
 	name = fields.Char()
 	imag = fields.Binary()
 	stock_lines = fields.One2many('stock.line', 'company_id')
-	
-
-	
-	
 
 class StockValue(models.Model):
 	_name = 'stock.value'
@@ -137,15 +150,11 @@ class StockValue(models.Model):
 	company_id = fields.Many2one('company.company')
 	stock = fields.Float()	
 
-
-
 class BalanceValue(models.Model):
 	_name = 'balance.value'
 	pos_id = fields.Many2one('pos_voucher.pos_voucher')
 	company_id = fields.Many2one('company.company')
-	balance = fields.Float()	
-
-	
+	balance = fields.Float()		
 
 class StockLine(models.Model):
 	_name = 'stock.line'
@@ -154,11 +163,9 @@ class StockLine(models.Model):
 	pos_id = fields.Many2one('pos_voucher.pos_voucher')
 	company_id = fields.Many2one(related='card_id.comp_name')
 
-
 class Transaction(models.Model):
 	_name = 'pos.trans'
 	trans_type = fields.Selection([('in', "IN"), ('out', "OUT")], default='out', string="Transaction Type")
 	pos_id = fields.Many2one('pos_voucher.pos_voucher', "POS")
 	qty = fields.Integer("Quantity")
 	company_id = fields.Many2one('company.company', "Company")
-
