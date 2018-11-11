@@ -19,8 +19,9 @@ class pos_voucher(models.Model):
 	@api.multi
 	def update_balance(self):
 		view_id = self.env.ref('pos_voucher.balanceTransition_list').id
-		return {'name':'update balance',
-	'view_type':'tree',
+		return {
+			'name':'update balance',
+	'view_type':'form',
 	'view_mode':'list',
 	'res_model':'pos.trans',
 	'view_id':False,
@@ -30,12 +31,14 @@ class pos_voucher(models.Model):
 	    
 	@api.multi
 	def update_stock(self):
-		# view_id = self.env.ref('pos_voucher.stockline_form').id
+		view_id = self.env.ref('pos_voucher.stockline_form').id
 		return {
-            'name':'update balance',
-            'view_type':'tree',
-            'view_mode':'tree',
+            	'name':'update balance',
+            'view_type':'form',
+            'view_mode':'form',
+			'views':[('stockline_form','form')],
             'res_model':'stock.line',
+			'view_id': view_id,
             'model':'ir.actions.act_window',
             'type':'ir.actions.act_window',
             'res_id':self.id,
