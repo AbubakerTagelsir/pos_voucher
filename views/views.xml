@@ -17,8 +17,19 @@
       <field name="view_type">tree</field>
       <field name="view_mode">list</field>
       <field name="target">new</field>
-      <!-- <field name="domain">[('id', '=',default_pos_id)]</field> -->
+      <field name="context">{'default_search_company':1}</field>
+      <field name="search_view_id" ref="company_search_view"/>
      
+    </record>
+
+    <record id="company_search_view" model="ir.ui.view">
+      <field name="model">stock.line</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="company_id"/>
+          <filter name="company" string="group by company" icon="terp-project" context="{'group_by':'company_id'}"/>
+        </search>
+      </field>
     </record>
 
     <record model="ir.actions.act_window" id="posTrans_action_window">
@@ -50,7 +61,7 @@
       <field name="arch" type="xml">
         <form>
           <header>
-            <!-- <button name="get_company_balance" string="Test" type='object'/> -->
+            
           </header>
           <sheet>
             <div name="buttons" class="oe_right oe_button_box">
@@ -76,8 +87,6 @@
             </div>
             <group>
               <field name="name" string="Full Name"/>
-              <field name="stock" readonly="1"/>
-              <field name="balance" readonly="1"/>
               <field name="phonenumber"/>
             </group>
             <field name="company" widget="one2many_list">
@@ -86,22 +95,23 @@
                 <field name="stock"/>
               </tree>
             </field>
+
             <!--  <field name="stock_lines" widget="one2many_list">
               <tree editable="bottom">
                 <field name="card_id"/>
                 <field name="qty"/>
               </tree>
-            </field>
-            <field name="trans_history" widget="one2many_list">
+            </field> -->
+           <!--  <field name="trans_history" widget="one2many_list">
               <tree editable="bottom">
                 <field name="company_id"/>
                <field name="trans_type"/>
                 <field name="qty"/>
               </tree>
-            </field>
- -->
+            </field> -->
+
             <field name="company_balance" widget="one2many_list">
-              <tree editable="bottom">
+              <tree>
                 <field name="company_id"/>
                 <field name="balance"/>
               </tree>
@@ -158,7 +168,6 @@
         <form>
           <sheet>
             <group>
-              
               <field name="name" string="Full Name"/>
               <field name="imag" widget="image"/>
             </group>
@@ -270,6 +279,7 @@
     
 
     <!-- Top menu item -->
+
     
     <menuitem name="POS" id="pos_voucher.menu_root" action="pos_voucher.action_window"/>
     
