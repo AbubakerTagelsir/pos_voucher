@@ -30,29 +30,29 @@ class pos_voucher(models.Model):
 		view_id = self.env.ref('pos_voucher.balanceTransition_list').id
 		return {
 			'name':'update balance',
-	'view_type':'form',
-	'view_mode':'list',
-	'res_model':'pos.trans',
-	'view_id':False,
-	'type':'ir.actions.act_window',
-	'res_id':self.id,
-	'target':'new'}
+			'view_type':'form',
+			'view_mode':'list',
+			'res_model':'pos.trans',
+			'view_id':False,
+			'type':'ir.actions.act_window',
+			'res_id':self.id,
+			'target':'new'}
 	    
 	@api.multi
 	def update_stock(self):
 		view_id = self.env.ref('pos_voucher.stockline_form').id
 		return {
             	'name':'update balance',
-            'view_type':'form',
-            'view_mode':'form',
-			'views':[('stockline_form','form')],
-            'res_model':'stock.line',
-			'view_id': view_id,
-            'model':'ir.actions.act_window',
-            'type':'ir.actions.act_window',
-            'res_id':self.id,
-            'target':'new'
-        }
+				'view_type':'form',
+				'view_mode':'form',
+				'views':[(view_id,'form')],
+				'res_model':'stock.line',
+				'view_id': view_id,
+				'model':'ir.actions.act_window',
+				'type':'ir.actions.act_window',
+				'res_id':self.id,
+				'target':'new'
+			}
 		
 		
 	@api.onchange('stock_lines')
