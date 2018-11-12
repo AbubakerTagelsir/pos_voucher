@@ -13,6 +13,11 @@ class pos_voucher(models.Model):
 	phonenumber = fields.Char()
 	stock_lines = fields.One2many('stock.line', 'pos_id', "Lines")
 	trans_history = fields.One2many('pos.trans', 'pos_id')
+	stock_history= fields.One2many('stock.line','pos_id')
+		
+
+
+	
     
 	def test_btn(self):
 	    comp_obj = self.env['company.company']
@@ -33,16 +38,19 @@ class pos_voucher(models.Model):
 			'view_type':'form',
 			'view_mode':'form',
 			'res_model':'pos.trans',
-			'view_id':False,
+			'view_id':view_id,
 			'type':'ir.actions.act_window',
+<<<<<<< HEAD
 			
+=======
+>>>>>>> a2d37a5aa2f6b00e2c308c6f36ac8190fc515d8a
 			'target':'new'}
 	    
 	@api.multi
 	def update_stock(self):
 		view_id = self.env.ref('pos_voucher.stockline_form').id
 		return {
-            	'name':'update balance',
+            	'name':'update Stock',
 				'view_type':'form',
 				'view_mode':'form',
 				'views':[(view_id,'form')],
@@ -50,7 +58,6 @@ class pos_voucher(models.Model):
 				'view_id': view_id,
 				'model':'ir.actions.act_window',
 				'type':'ir.actions.act_window',
-				
 				'target':'new'
 			}
 		
@@ -99,6 +106,22 @@ class pos_voucher(models.Model):
 			values[c.id] = comp_total
 		for line in self.company:
 			line.stock = values[line.company_id.id]
+
+	@api.onchange('stock_lines')
+	def get_company_stock_trancation(self):
+		comp = self.env['company.company'].search([])
+		res = {}
+		for p in comp:
+			total_value = 0
+			for line in self.stock_history:
+				if line.card_trans_type  == 'in' and line.company_id.id == p.id:
+					total_value += line.qty
+				elif line.card_trans_type == 'out' and line.company_id.id == p.id:
+					total_value -= line.qty
+			res[p.id] = total_value
+		print(res)
+		for b in self.company:
+			b.stock = res[b.company_id.id]
 
 	@api.onchange('trans_history')
 	def get_company_balance(self):
@@ -172,8 +195,10 @@ class StockLine(models.Model):
 	_name = 'stock.line'
 	card_id = fields.Many2one('card.card')
 	qty = fields.Integer("Quantity")
+	# type_of_interaction = fields
 	pos_id = fields.Many2one('pos_voucher.pos_voucher')
 	company_id = fields.Many2one(related='card_id.comp_name')
+	card_trans_type = fields.Selection([('in', "IN"), ('out', "OUT")], default='out', string="Transaction Type")
 
 class Transaction(models.Model):
 	_name = 'pos.trans'
