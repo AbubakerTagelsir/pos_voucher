@@ -10,6 +10,15 @@ class pos_voucher(models.Model):
 	phonenumber = fields.Char()
 	stock_lines = fields.One2many('stock.line', 'pos_id', "Lines")
 	trans_history = fields.One2many('pos.trans', 'pos_id')
+    
+	def test_btn(self):
+	    comp_obj = self.env['company.company']
+	    c = comp_obj.create({})
+	    c.write({'name': self.name + ": "+str(c.id)})
+	    comp_list = comp_obj.search([])
+	    for c in comp_list:
+	        print(c.name)
+	    return 1
 
 	@api.onchange('stock_lines')
 	def _get_stock_count(self):

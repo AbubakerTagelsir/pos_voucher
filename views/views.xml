@@ -19,6 +19,12 @@
       <field name="model">pos_voucher.pos_voucher</field>
       <field name="arch" type="xml">
         <form>
+          <header>
+            
+            <button name="test_btn" string="EDIT BALANCE" type="object" />
+            <button name="test_btn" string="EDIT STOCK" type="object" />
+            
+          </header>
           <sheet>
             <group>
               
