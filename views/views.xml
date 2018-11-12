@@ -62,9 +62,9 @@
       <field name="arch" type="xml">
         <form>
           <header>
-            
+<!--             
             <button name="test_btn" string="EDIT BALANCE" type="object" />
-            <button name="test_btn" string="EDIT STOCK" type="object" />
+            <button name="test_btn" string="EDIT STOCK" type="object" /> -->
             
           <button name="update_stock" string="Update Stock" type="object" />
           <button name="update_balance" string="Update balance" type="object" />
@@ -203,10 +203,11 @@
       <field name="arch" type="xml">
         <form>
           <sheet>
-            <group>
-              <field name="company_id" string="Company Name"/>
-              <field name="card_id" string="Card"/>
-              <field name="qty"/>
+            <group colspan='2' col='2'>
+              <field name="company_id" string="Company Name" widget="selection"/>
+              <field name="card_id" string="Card" required='1' widget="selection" domain="[('comp_name', '=', company_id)]"/>
+              <field name="qty" required='1'/>
+              <field name="card_trans_type"/>
             </group>
             
           </sheet>
