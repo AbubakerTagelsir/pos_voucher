@@ -1,16 +1,16 @@
 <odoo>
   <data><!-- 
     <!- explicit list view definition -->
-   <record model="ir.actions.act_window" id="stock_line_action_form">
+
+      <record model="ir.actions.act_window" id="stock_line_action_form">
       <field name="name">POS Stock</field>
       <field name="res_model">stock.line</field>
       <field name="view_type">form</field>
       <field name="view_mode">list</field>
       <field name="target">new</field>
       <!-- <field name="domain">[('id', '=',default_pos_id)]</field> -->
-     
-    </record> 
-
+    </record>  
+    
     <record model="ir.actions.act_window" id="stockLine_action_window">
 
       <field name="name">POS Stock</field>
@@ -19,8 +19,7 @@
       <field name="view_mode">list</field>
       <field name="target">new</field>
       <field name="context">{'default_search_company':1}</field>
-      <!-- <field name="search_view_id" ref="company_search_view"/> -->
-     
+      <!-- <field name="search_view_id" ref="company_search_view"/> --> 
     </record>
 
     <record id="company_search_view" model="ir.ui.view">
@@ -211,6 +210,11 @@
             </group>
             
           </sheet>
+          <footer>
+            <button name="confirm1" string="Confirm" type="object" confirm="Are you sure you want to do this?"/>
+            <button string="Cancel" class="oe_link" special="cancel" />
+            
+          </footer>
         </form>
       </field>
     </record>
@@ -227,6 +231,28 @@
         </tree>
       </field>
     </record>
+    
+       <record model="ir.ui.view" id="balanceTransition_form">
+      <field name="name">Balance transitions lists</field>
+      <field name="model">pos.trans</field>
+      <field name="arch" type="xml">
+        <form>
+        <sheet>
+        <group>
+          <field name="company_id" string="company" widget="selection"/>
+          <field name="trans_type" string="Transition Type"/>
+          <field name="qty" string="Quantiaty" required='1'/>
+          </group>
+          </sheet>
+           <footer>
+            <button name="confirm" string="Confirm" type="object" confirm="Are you sure you want to save this?"/>
+            <button string="Cancel" class="oe_link" special="cancel" />
+            
+          </footer>
+        </form>
+      </field>
+    </record>
+
     
     
     <!-- actions opening views on models -->

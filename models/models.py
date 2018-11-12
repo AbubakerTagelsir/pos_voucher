@@ -1,11 +1,12 @@
 from odoo import models, fields, api
 
-class pos_voucher(models.TransientModel):
-	_name = 'pos_voucher.test'
 
-	name = fields.Char()	
+# class pos_voucher(models.TransientModel):
+# 	_name = 'pos_voucher.test'
+# 	name = fields.Char()	
 
-class pos_voucher(models.Model):
+
+class POSVoucher(models.Model):
 	_name = 'pos_voucher.pos_voucher'	
 	name = fields.Char()
 	stock = fields.Float(compute="_get_stock_count")
@@ -14,11 +15,8 @@ class pos_voucher(models.Model):
 	stock_lines = fields.One2many('stock.line', 'pos_id', "Lines")
 	trans_history = fields.One2many('pos.trans', 'pos_id')
 	stock_history= fields.One2many('stock.line','pos_id')
-		
+			
 
-
-	
-    
 	def test_btn(self):
 	    comp_obj = self.env['company.company']
 	    c = comp_obj.create({})
@@ -29,10 +27,11 @@ class pos_voucher(models.Model):
 	    return 1
 	company = fields.One2many('stock.value','pos_id')
 	company_balance = fields.One2many('balance.value','pos_id')
+	
 
 	@api.multi
 	def update_balance(self):
-		view_id = self.env.ref('pos_voucher.balanceTransition_list').id
+		view_id = self.env.ref('pos_voucher.balanceTransition_form').id
 		return {
 			'name':'update balance',
 			'view_type':'form',
@@ -56,7 +55,19 @@ class pos_voucher(models.Model):
 				'type':'ir.actions.act_window',
 				'target':'new'
 			}
-		
+
+	# @api.multi
+	# def confirm(self):
+	# 	self.ensure_one()
+    #     pass
+
+
+	# @api.multi
+	# def confirm1(self):
+	# 	self.ensure_one()
+    #     pass
+
+
 		
 	@api.onchange('stock_lines')
 	def _get_stock_count(self):
@@ -162,14 +173,14 @@ class pos_voucher(models.Model):
 	# 	for line in self.company:
 	                       
 
-class card(models.Model):
+class Card(models.Model):
 	_name = 'card.card'
 	name = fields.Char()
 	comp_name = fields.Many2one('company.company', "Manufacturer")
 	value = fields.Integer()
 
 
-class company(models.Model):
+class Company(models.Model):
 	_name = 'company.company'
 	name = fields.Char()
 	imag = fields.Binary()
