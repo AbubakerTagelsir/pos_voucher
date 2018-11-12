@@ -44,9 +44,9 @@ class pos_voucher(models.Model):
 		return {
             	'name':'update balance',
 				'view_type':'form',
-				'view_mode':'form',
+				'view_mode':'list',
 				'views':[(view_id,'form')],
-				'res_model':'stock.line',
+				'res_model':'pos.trans',
 				'view_id': view_id,
 				'model':'ir.actions.act_window',
 				'type':'ir.actions.act_window',
