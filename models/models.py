@@ -39,6 +39,10 @@ class POSVoucher(models.Model):
 			'res_model':'pos.trans',
 			'view_id':view_id,
 			'type':'ir.actions.act_window',
+<<<<<<< HEAD
+			
+=======
+>>>>>>> a2d37a5aa2f6b00e2c308c6f36ac8190fc515d8a
 			'target':'new'}
 	    
 	@api.multi
