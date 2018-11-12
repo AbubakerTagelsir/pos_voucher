@@ -31,11 +31,11 @@ class pos_voucher(models.Model):
 		return {
 			'name':'update balance',
 			'view_type':'form',
-			'view_mode':'list',
+			'view_mode':'form',
 			'res_model':'pos.trans',
 			'view_id':False,
 			'type':'ir.actions.act_window',
-			'res_id':self.id,
+			
 			'target':'new'}
 	    
 	@api.multi
@@ -50,7 +50,7 @@ class pos_voucher(models.Model):
 				'view_id': view_id,
 				'model':'ir.actions.act_window',
 				'type':'ir.actions.act_window',
-				'res_id':self.id,
+				
 				'target':'new'
 			}
 		
