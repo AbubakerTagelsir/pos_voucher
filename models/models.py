@@ -29,14 +29,17 @@ class pos_voucher(models.Model):
 	def update_balance(self):
 		view_id = self.env.ref('pos_voucher.balanceTransition_list').id
 		return {
-			'name':'update balance',
-			'view_type':'form',
-			'view_mode':'list',
-			'res_model':'pos.trans',
-			'view_id':False,
-			'type':'ir.actions.act_window',
-			'res_id':self.id,
-			'target':'new'}
+            	'name':'update balance',
+				'view_type':'form',
+				'view_mode':'form',
+				'views':[(view_id,'form')],
+				'res_model':'pos.trans',
+				'view_id': view_id,
+				'model':'ir.actions.act_window',
+				'type':'ir.actions.act_window',
+				'res_id':self.id,
+				'target':'new'
+			}
 	    
 	@api.multi
 	def update_stock(self):
