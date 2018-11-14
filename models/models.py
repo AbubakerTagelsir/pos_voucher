@@ -8,6 +8,7 @@ class pos_voucher(models.TransientModel):
 class pos_voucher(models.Model):
 	_name = 'pos_voucher.pos_voucher'	
 	name = fields.Char()
+	user_id = fields.Many2one('res.users', "User")
 	stock = fields.Float(compute="_get_stock_count")
 	balance = fields.Float(compute="_get_transactions_balance")
 	phonenumber = fields.Char()
@@ -172,3 +173,9 @@ class Transaction(models.Model):
 	pos_id = fields.Many2one('pos_voucher.pos_voucher', "POS")
 	qty = fields.Integer("Quantity")
 	company_id = fields.Many2one('company.company', "Company")
+
+
+class demo_access_rights(models.Model):
+    _name = 'demo.access.rights'
+    _rec_name = 'name'
+    name = fields.Char('Name',required=True)
