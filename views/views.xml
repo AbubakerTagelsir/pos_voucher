@@ -8,6 +8,7 @@
       <field name="view_type">form</field>
       <field name="view_mode">list</field>
       <field name="target">new</field>
+
       <!-- <field name="domain">[('id', '=',default_pos_id)]</field> -->
     </record>  
     
@@ -17,9 +18,10 @@
       <field name="res_model">stock.line</field>
       <field name="view_type">tree</field>
       <field name="view_mode">list</field>
+      <field name="auto_search">1</field>
       <field name="target">new</field>
       <field name="context">{'default_search_company':1}</field>
-      <!-- <field name="search_view_id" ref="company_search_view"/> --> 
+      <field name="search_view_id" ref="company_search_view"/>
     </record>
 
     <record id="company_search_view" model="ir.ui.view">
@@ -60,14 +62,15 @@
       <field name="model">pos_voucher.pos_voucher</field>
       <field name="arch" type="xml">
         <form>
-          <header>
+
+          
             
             <!-- <button name="test_btn" string="EDIT BALANCE" type="object" />
             <button name="test_btn" string="EDIT STOCK" type="object" /> -->
             
           <button name="update_stock" string="Update Stock" type="object" />
-          <button name="update_balance" string="Update balance" type="object" />
-          </header>
+          <button name="update_balance" string="Update balance" type="object" /> -->
+          <!-- </header> -->
           <sheet>
             <div name="buttons" class="oe_right oe_button_box">
               <button id="button_id" 
@@ -92,6 +95,7 @@
             </div>
             <group>
               <field name="name" string="Full Name"/>
+              <field name="user_id"/>
               <field name="phonenumber"/>
             </group>
             <field name="company" widget="one2many_list">
@@ -101,12 +105,12 @@
               </tree>
             </field>
 
-            <!--  <field name="stock_lines" widget="one2many_list">
+             <field name="stock_lines" widget="one2many_list">
               <tree editable="bottom">
                 <field name="card_id"/>
                 <field name="qty"/>
               </tree>
-            </field> -->
+            </field>
            <!--  <field name="trans_history" widget="one2many_list">
               <tree editable="bottom">
                 <field name="company_id"/>
@@ -349,8 +353,8 @@
     
     <!-- menu categories -->
     
-    <menuitem name="Points of Sales" id="pos_voucher.name" parent="pos_voucher.menu_root"  action="pos_voucher.action_window"/>
-    <menuitem name="Cards" id="card_menu" parent="pos_voucher.menu_root"  action="card_action_window"/>
+    <menuitem name="Points of Sales" id="pos_voucher.name" parent="pos_voucher.menu_root"  action="pos_voucher.action_window" groups="pos_voucher.group_manager,pos_voucher.group_user"/>
+    <menuitem name="Cards" id="card_menu" parent="pos_voucher.menu_root"  action="card_action_window"  groups="pos_voucher.group_manager"/>
     <menuitem name="Companies" id="comp_menu" parent="pos_voucher.menu_root"  action="comapny_action_window"/>
     
     <!-- actions -->
