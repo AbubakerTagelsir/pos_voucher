@@ -63,8 +63,8 @@
           <header>
             
             <!-- <button name="test_btn" string="EDIT BALANCE" type="object" />
-            <button name="test_btn" string="EDIT STOCK" type="object" />
-            --> 
+            <button name="test_btn" string="EDIT STOCK" type="object" /> -->
+            
           <button name="update_stock" string="Update Stock" type="object" />
           <button name="update_balance" string="Update balance" type="object" />
           </header>
@@ -229,6 +229,18 @@
           <field name="trans_type" string="Transition Type"/>
           <field name="qty"/>
         </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="balance_transaction_form">
+      <field name="name">Balance transitions lists</field>
+      <field name="model">pos.trans</field>
+      <field name="arch" type="xml">
+        <form>
+          <field name="company_id" string="company"/>
+          <field name="trans_type" string="Transition Type"/>
+          <field name="qty"/>
+        </form>
       </field>
     </record>
     
