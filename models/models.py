@@ -9,6 +9,7 @@ from odoo import models, fields, api
 class POSVoucher(models.Model):
 	_name = 'pos_voucher.pos_voucher'	
 	name = fields.Char()
+	user_id = fields.Many2one('res.users', "User")
 	stock = fields.Float(compute="_get_stock_count")
 	balance = fields.Float(compute="_get_transactions_balance")
 	phonenumber = fields.Char()
@@ -33,15 +34,7 @@ class POSVoucher(models.Model):
 	def update_balance(self):
 		view_id = self.env.ref('pos_voucher.balanceTransition_form').id
 		return {
-<<<<<<< HEAD
-			'name':'update balance',
-			'view_type':'form',
-			'view_mode':'form',
-			'res_model':'pos.trans',
-			'view_id':view_id,
-			'type':'ir.actions.act_window',
-			'target':'new'}
-=======
+
             	'name':'update balance',
 				'view_type':'form',
 				'view_mode':'form',
@@ -53,7 +46,7 @@ class POSVoucher(models.Model):
 				'res_id':self.id,
 				'target':'new'
 			}
->>>>>>> 2a72445a0d5324433b0eef2943525515d65e669c
+
 	    
 	@api.multi
 	def update_stock(self):
@@ -227,3 +220,9 @@ class Transaction(models.Model):
 	pos_id = fields.Many2one('pos_voucher.pos_voucher', "POS")
 	qty = fields.Integer("Quantity")
 	company_id = fields.Many2one('company.company', "Company")
+
+
+class demo_access_rights(models.Model):
+    _name = 'demo.access.rights'
+    _rec_name = 'name'
+    name = fields.Char('Name',required=True)
