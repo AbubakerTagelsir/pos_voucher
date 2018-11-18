@@ -328,7 +328,6 @@
     <record model="ir.actions.server" id="vouchers_pos.action_server">
       <field name="name">vouchers_pos server</field>
       <field name="model_id" ref="model_vouchers_pos_vouchers_pos"/>
->>>>>>> 38804a03d6ffdf0707a75088965937efa787611a
       <field name="state">code</field>
       <field name="code">
         action = {
@@ -337,7 +336,7 @@
           "res_model": self._name,
         }
       </field>
-<<<<<<< HEAD
+
     </record> -->
     
 

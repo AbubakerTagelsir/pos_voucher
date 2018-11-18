@@ -27,15 +27,15 @@ class Example(http.Controller):
         print(purchase_proces)
         return purchase_proces
 
-        @http.route('/pos/sale_voucher', type='json', auth='public',csrf=False)
-    def sale_vouchers(self, *args, **kwargs):
-        sale_proces =  request.env['stock.line'].sudo().create({
-            'company_id': request.params["company_name"],
-            'card_id': request.params["card_value"],
-            'qty': request.params["qty"],
-            })
-        print(sale_proces)
-        return sale__proces
+    # @http.route('/pos/sale_voucher', type='json', auth='public',csrf=False)
+    # def sale_vouchers(self, *args, **kwargs):
+    #     sale_proces =  request.env['stock.line'].sudo().create({
+    #         'company_id': request.params["company_name"],
+    #         'card_id': request.params["card_value"],
+    #         'qty': request.params["qty"],
+    #         })
+    #     print(sale_proces)
+    #     return sale_proces
 
     #     @http.route('/pos/purchase_balance', type='json', auth='public',csrf=False)
     # def purchase_balance(self, *args, **kwargs):
