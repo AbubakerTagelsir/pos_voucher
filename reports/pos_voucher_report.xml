@@ -12,21 +12,19 @@
 
 
   <template id="report_pos_voucher_template">
-    <t t-call="report.html_container">
+    <t t-call="web.html_container">
       <t t-foreach="docs" t-as="o">
-      <t t-call="report.external_layout">
-      </t>
-    </t>
-    </t>
-  </template>
+      <t t-call="web.external_layout">
+            
+       <div class="page">
+        <p>Name   <span t-field="o.name"/></p> 
+        <p>Stock  <span t-field="o.stock"/></p> 
+        <p>Balance  <span t-field="o.balance"/></p> 
+        <p> Phonenumber  <span t-field="o.phonenumber"/></p> 
+       </div> 
+      </t> 
 
-</odoo>
-  <!--         
-      paperformat = "pos_voucher_format"
-
-
-
-  <record id="pos_voucher_format" model="report.paperformat">
+  <!-- <record id="pos_voucher_format" model="report.paperformat">
      <field name="name">POS_voucher</field>
      <field name="default" eval="False" />
      <field name="format">custom</field>
@@ -40,5 +38,12 @@
      <field name="header_line" eval="False" />
      <field name="header_spacing">10</field>
      <field name="dpi">90</field>
-  </record> -->
+  </record> --> 
+
+    </t>
+    </t>
+  </template>
+
+</odoo>
+
 
