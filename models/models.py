@@ -9,7 +9,7 @@ from odoo import models, fields, api
 class POSVoucher(models.Model):
 	_name = 'pos_voucher.pos_voucher'	
 	name = fields.Char()
-	user_id = fields.Many2one('res.users', "User")
+	user_id = fields.Many2one('res.users', "User",store="Ture")
 	stock = fields.Float(compute="_get_stock_count")
 	balance = fields.Float(compute="_get_transactions_balance")
 	phonenumber = fields.Char()

@@ -307,15 +307,38 @@
       <field name="view_mode">tree,form</field>
     </record>
     
+    <record id= "view_pos_hostiry_report_pivot" model="ir.ui.view">
+      <field name="model">pos_voucher.pos_voucher</field>
+      <field name="arch" type="xml">
+        <pivot string="pos History Analysis">
+          <field name="name" type="row"/>
+          <field name="user_id" type="col"/>
+          <field name="phonenumber" type="col"/>
+          <field name="stock" type="measure"/>
+          <field name="balance" type="measure"/>
+        </pivot>
+      </field>
+    </record>
+     
+    <record id="action_pos_report_act_window" model="ir.actions.act_window">
+      <field name="name">profile</field>
+      <field name="res_model">pos_voucher.pos_voucher</field>
+      <field name="view_mode">pivot</field>
+      <field name="view_type">form</field> 
+      <field name="target">current</field>
+      <!-- <field name="view_id">view_pos_hostiry_report_pivot</field> -->
+    </record>
 
-    <!-- server action to the one above -->
-<!--     
-    <record model="ir.actions.server" id="pos_voucher.action_server">
+    <menuitem name="Daynamic Reports" id="report_pivot"  action="action_pos_report_act_window"/>
+
+    <!-- server action to the one above -->     
+    <!-- <record model="ir.actions.server" id="pos_voucher.action_server">
       <field name="name">pos_voucher server</field>
-      <field name="model_id" ref="model_pos_voucher_pos_voucher"/>
-=======
+      <field name="model_id" ref="model_pos_voucher_pos_voucher"/>  -->
+
+<!-- =======
   <data>
-     explicit list view definition -->
+     explicit list view definition  -->
     <!--
     <record model="ir.ui.view" id="vouchers_pos.list">
       <field name="name">vouchers_pos list</field>
