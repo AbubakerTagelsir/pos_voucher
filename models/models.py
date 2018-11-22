@@ -43,7 +43,6 @@ class POSVoucher(models.Model):
 				'view_id': view_id,
 				'model':'ir.actions.act_window',
 				'type':'ir.actions.act_window',
-				'res_id':self.id,
 				'target':'new'
 			}
 
