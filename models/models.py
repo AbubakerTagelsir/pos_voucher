@@ -16,6 +16,8 @@ class POSVoucher(models.Model):
 	stock_lines = fields.One2many('stock.line', 'pos_id', "Lines")
 	trans_history = fields.One2many('pos.trans', 'pos_id')
 	stock_history= fields.One2many('stock.line','pos_id')
+	company = fields.One2many('stock.value','pos_id')
+	company_balance = fields.One2many('balance.value','pos_id')
 			
 
 	def test_btn(self):
@@ -26,8 +28,6 @@ class POSVoucher(models.Model):
 	    for c in comp_list:
 	        print(c.name)
 	    return 1
-	company = fields.One2many('stock.value','pos_id')
-	company_balance = fields.One2many('balance.value','pos_id')
 	
 
 	@api.multi
