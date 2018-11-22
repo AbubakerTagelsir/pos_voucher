@@ -21,6 +21,16 @@
         </search>
       </field>
     </record>
+
+     <record id="company_search_view" model="ir.ui.view">
+      <field name="model">stock.line</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="company_id"/>
+          <filter name="company" string="group by company" icon="terp-project" context="{'group_by':'company_id'}"/>
+        </search>
+      </field>
+    </record>
     
     <record model="ir.actions.act_window" id="stockLine_action_window">
 
@@ -34,15 +44,7 @@
       <field name="search_view_id" ref="company_search_view"/>
     </record>
 
-    <record id="company_search_view" model="ir.ui.view">
-      <field name="model">stock.line</field>
-      <field name="arch" type="xml">
-        <search>
-          <field name="company_id"/>
-          <filter name="company" string="group by company" icon="terp-project" context="{'group_by':'company_id'}"/>
-        </search>
-      </field>
-    </record>
+
 
     <record model="ir.actions.act_window" id="posTrans_action_window">
       <field name="name">POS Balance</field>
@@ -342,7 +344,6 @@
     <record model="ir.actions.server" id="vouchers_pos.action_server">
       <field name="name">vouchers_pos server</field>
       <field name="model_id" ref="model_vouchers_pos_vouchers_pos"/>
->>>>>>> 38804a03d6ffdf0707a75088965937efa787611a
       <field name="state">code</field>
       <field name="code">
         action = {
@@ -351,7 +352,7 @@
           "res_model": self._name,
         }
       </field>
-<<<<<<< HEAD
+
     </record> -->
     
 

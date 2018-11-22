@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<odoo>
+  <report 
+    id="action_pos_voucher_report"
+    string="Pos_voucher report"
+    model="pos_voucher.pos_voucher"
+    report_type="qweb-pdf"
+    name="pos_voucher.report_pos_voucher_template"
+    file="pos_voucher.report_pos_voucher_template"
+  />
+
+
+
+  <template id="report_pos_voucher_template">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="o">
+      <t t-call="web.external_layout">
+            
+       <div class="page">
+        <p>Name   <span t-field="o.name"/></p> 
+        <p>Stock  <span t-field="o.stock"/></p> 
+        <p>Balance  <span t-field="o.balance"/></p> 
+        <p> Phonenumber  <span t-field="o.phonenumber"/></p> 
+       </div> 
+      </t> 
+
+  <!-- <record id="pos_voucher_format" model="report.paperformat">
+     <field name="name">POS_voucher</field>
+     <field name="default" eval="False" />
+     <field name="format">custom</field>
+     <field name="page_height">320</field>
+     <field name="page_width">220</field>
+     <field name="orientation">Portrait</field>
+     <field name="margin_top">0</field>
+     <field name="margin_bottom">0</field>
+     <field name="margin_left">10</field>
+     <field name="margin_right">10</field>
+     <field name="header_line" eval="False" />
+     <field name="header_spacing">10</field>
+     <field name="dpi">90</field>
+  </record> --> 
+
+    </t>
+    </t>
+  </template>
+
+</odoo>
+
+
