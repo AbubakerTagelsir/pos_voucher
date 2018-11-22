@@ -27,7 +27,7 @@ class Example(http.Controller):
         print(purchase_proces)
         return purchase_proces
 
-        @http.route('/pos/sale_voucher', type='json', auth='public',csrf=False)
+    @http.route('/pos/sale_voucher', type='json', auth='public',csrf=False)
     def sale_vouchers(self, *args, **kwargs):
         sale_proces =  request.env['stock.line'].sudo().create({
             'company_id': request.params["company_name"],
