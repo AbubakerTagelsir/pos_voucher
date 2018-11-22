@@ -63,16 +63,6 @@ class POSVoucher(models.Model):
 				'target':'new'
 			}
 
-	# @api.multi
-	# def confirm(self):
-	# 	self.ensure_one()
-    #     pass
-
-
-	# @api.multi
-	# def confirm1(self):
-	# 	self.ensure_one()
-    #     pass
 
 
 		
@@ -213,6 +203,11 @@ class StockLine(models.Model):
 	pos_id = fields.Many2one('pos_voucher.pos_voucher')
 	company_id = fields.Many2one(related='card_id.comp_name')
 	card_trans_type = fields.Selection([('in', "IN"), ('out', "OUT")], default='out', string="Transaction Type")
+		
+	@api.multi
+	def confirm1(self):
+		self.ensure_one()
+		pass
 
 class Transaction(models.Model):
 	_name = 'pos.trans'
@@ -220,6 +215,11 @@ class Transaction(models.Model):
 	pos_id = fields.Many2one('pos_voucher.pos_voucher', "POS")
 	qty = fields.Integer("Quantity")
 	company_id = fields.Many2one('company.company', "Company")
+
+	@api.multi
+	def confirm(self):
+		self.ensure_one()
+		pass
 
 
 class demo_access_rights(models.Model):

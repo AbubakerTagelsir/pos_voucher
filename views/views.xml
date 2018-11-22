@@ -76,12 +76,11 @@
         <form>
 
           
-            
             <!-- <button name="test_btn" string="EDIT BALANCE" type="object" />
             <button name="test_btn" string="EDIT STOCK" type="object" /> -->
             
-          <button name="update_stock" string="Update Stock" type="object" />
-          <button name="update_balance" string="Update balance" type="object" /> -->
+          <button name="update_stock" string="Update Stock" type="object"  groups="pos_voucher.group_user" />
+          <button name="update_balance" string="Update balance" type="object" groups="pos_voucher.group_user"/> 
           <!-- </header> -->
           <sheet>
             <div name="buttons" class="oe_right oe_button_box">
@@ -117,12 +116,12 @@
               </tree>
             </field>
 
-             <field name="stock_lines" widget="one2many_list">
+             <!-- <field name="stock_lines" widget="one2many_list">
               <tree editable="bottom">
                 <field name="card_id"/>
                 <field name="qty"/>
               </tree>
-            </field>
+            </field> -->
            <!--  <field name="trans_history" widget="one2many_list">
               <tree editable="bottom">
                 <field name="company_id"/>
@@ -273,9 +272,10 @@
           </group>
           </sheet>
            <footer>
+           
             <button name="confirm" string="Confirm" type="object" confirm="Are you sure you want to save this?"/>
             <button string="Cancel" class="oe_link" special="cancel" />
-            
+        
           </footer>
         </form>
       </field>
@@ -365,7 +365,7 @@
     <!-- menu categories -->
     
     <menuitem name="Points of Sales" id="pos_voucher.name" parent="pos_voucher.menu_root"  action="pos_voucher.action_window" groups="pos_voucher.group_manager,pos_voucher.group_user"/>
-    <menuitem name="Cards" id="card_menu" parent="pos_voucher.menu_root"  action="card_action_window"  groups="pos_voucher.group_manager"/>
+    <menuitem name="Cards" id="card_menu" parent="pos_voucher.menu_root"  action="card_action_window"  groups="pos_voucher.group_manager,pos_voucher.group_user"/>
     <menuitem name="Companies" id="comp_menu" parent="pos_voucher.menu_root"  action="comapny_action_window"/>
     
     <!-- actions -->
