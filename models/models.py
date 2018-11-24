@@ -11,7 +11,7 @@ class POSVoucher(models.Model):
 	name = fields.Char()
 	user_id = fields.Many2one('res.users', "User")
 	stock = fields.Float(compute="_get_stock_count")
-	balance = fields.Float(compute="_get_transactions_balance")
+	balance = fields.Float(compute="_get_transactions_balance", store="True")
 	phonenumber = fields.Char()
 	stock_lines = fields.One2many('stock.line', 'pos_id', "Lines")
 	trans_history = fields.One2many('pos.trans', 'pos_id')
@@ -63,16 +63,10 @@ class POSVoucher(models.Model):
 				'target':'new'
 			}
 
-	# @api.multi
-	# def confirm(self):
-	# 	self.ensure_one()
-    #     pass
 
 
-	# @api.multi
-	# def confirm1(self):
-	# 	self.ensure_one()
-    #     pass
+
+
 
 
 		
@@ -84,7 +78,7 @@ class POSVoucher(models.Model):
 				total_value += line.qty * line.card_id.value
 			p.stock = total_value
 
-	@api.onchange('trans_history')
+	@api.depends('trans_history')
 	def _get_transactions_balance(self):
 		for p in self:
 			total_value = 0
@@ -182,7 +176,7 @@ class POSVoucher(models.Model):
 
 class Card(models.Model):
 	_name = 'card.card'
-	name = fields.Char()
+	name = fields.Char(store="True")
 	comp_name = fields.Many2one('company.company', "Manufacturer")
 	value = fields.Integer()
 
@@ -214,6 +208,11 @@ class StockLine(models.Model):
 	company_id = fields.Many2one(related='card_id.comp_name')
 	card_trans_type = fields.Selection([('in', "IN"), ('out', "OUT")], default='out', string="Transaction Type")
 
+	@api.multi
+	def confirm1(self):
+		self.ensure_one()
+		pass
+
 class Transaction(models.Model):
 	_name = 'pos.trans'
 	trans_type = fields.Selection([('in', "IN"), ('out', "OUT")], default='out', string="Transaction Type")
@@ -221,6 +220,10 @@ class Transaction(models.Model):
 	qty = fields.Integer("Quantity")
 	company_id = fields.Many2one('company.company', "Company")
 
+	@api.multi
+	def confirm(self):
+		self.ensure_one()
+		pass
 
 class demo_access_rights(models.Model):
     _name = 'demo.access.rights'

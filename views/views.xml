@@ -3,12 +3,11 @@
     <!- explicit list view definition -->
 
       <record model="ir.actions.act_window" id="stock_line_action_form">
-      <field name="name">POS Stock</field>
-      <field name="res_model">stock.line</field>
-      <field name="view_type">form</field>
-      <field name="view_mode">list</field>
-      <field name="target">new</field>
-
+        <field name="name">POS Stock</field>
+        <field name="res_model">stock.line</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">list</field>
+        <field name="target">new</field>
       <!-- <field name="domain">[('id', '=',default_pos_id)]</field> -->
     </record>  
     
@@ -21,7 +20,7 @@
       <field name="auto_search">1</field>
       <field name="target">new</field>
       <field name="context">{'default_search_company':1}</field>
-      <field name="search_view_id" ref="company_search_view"/>
+      <!-- <field name="search_view_id" ref="company_search_view"/> -->
     </record>
 
     <record id="company_search_view" model="ir.ui.view">
@@ -294,7 +293,50 @@
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
     </record>
-    
+
+
+
+  <!--     <record id="view_pos_history_report_pivot" model="ir.ui.view"> -->
+<!-- 
+         <field name="name">pivot.report</field> -->
+<!-- 
+         <field name="arch" type="xml">
+
+             <pivot string="pos History Analysis">
+ -->
+                <!-- <field name="name" type="col"/> -->
+             <!--    <field name="state" type="col"/> -->
+            <!--     <field name="user_id" type="col"/> -->
+
+                <!-- <field name="count" type="measure" string="number of order"/> -->
+
+                <!-- <field name="user_id" type="row"/> -->
+
+                <!-- <field name="balance" type="measure"/> -->
+               <!--  <field name="total_profit" type="measure"/> -->
+
+                <!-- <field name="date:day" type="row"/> -->
+
+                <!-- <field name="no_of_orders" type="col"/> -->
+
+                <!-- <field name="total_price_pivot" type="col"/> -->
+<!-- 
+             </pivot>
+
+           </field>
+
+</record>
+
+  <record id="action_pos_report_act_window" model="ir.actions.act_window">
+      <field name="type">ir.actions.act_window</field>
+      <field name="name">profile</field>
+      <field name="res_model">pos_voucher.pos_voucher</field>
+      <field name="view_mode">pivot</field>
+      <field name="view_type">form</field>
+      <field name="target">current</field>
+    </record>
+   <menuitem name="Dynamic Report" id="report_pivot" sequence="10" parent="pos_voucher.menu_root" action="action_pos_report_act_window"/>
+ -->
 
     <!-- server action to the one above -->
 <!--     
