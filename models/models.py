@@ -9,13 +9,15 @@ from odoo import models, fields, api
 class POSVoucher(models.Model):
 	_name = 'pos_voucher.pos_voucher'	
 	name = fields.Char()
-	user_id = fields.Many2one('res.users', "User")
+	user_id = fields.Many2one('res.users', "User",store="Ture")
 	stock = fields.Float(compute="_get_stock_count")
 	balance = fields.Float(compute="_get_transactions_balance", store="True")
 	phonenumber = fields.Char()
 	stock_lines = fields.One2many('stock.line', 'pos_id', "Lines")
 	trans_history = fields.One2many('pos.trans', 'pos_id')
 	stock_history= fields.One2many('stock.line','pos_id')
+	company = fields.One2many('stock.value','pos_id')
+	company_balance = fields.One2many('balance.value','pos_id')
 			
 
 	def test_btn(self):
@@ -26,8 +28,6 @@ class POSVoucher(models.Model):
 	    for c in comp_list:
 	        print(c.name)
 	    return 1
-	company = fields.One2many('stock.value','pos_id')
-	company_balance = fields.One2many('balance.value','pos_id')
 	
 
 	@api.multi
@@ -62,11 +62,6 @@ class POSVoucher(models.Model):
 				'type':'ir.actions.act_window',
 				'target':'new'
 			}
-
-
-
-
-
 
 
 		
@@ -207,6 +202,11 @@ class StockLine(models.Model):
 	pos_id = fields.Many2one('pos_voucher.pos_voucher')
 	company_id = fields.Many2one(related='card_id.comp_name')
 	card_trans_type = fields.Selection([('in', "IN"), ('out', "OUT")], default='out', string="Transaction Type")
+		
+	@api.multi
+	def confirm1(self):
+		self.ensure_one()
+		pass
 
 	@api.multi
 	def confirm1(self):
@@ -224,6 +224,7 @@ class Transaction(models.Model):
 	def confirm(self):
 		self.ensure_one()
 		pass
+
 
 class demo_access_rights(models.Model):
     _name = 'demo.access.rights'

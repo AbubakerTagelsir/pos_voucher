@@ -10,6 +10,26 @@
         <field name="target">new</field>
       <!-- <field name="domain">[('id', '=',default_pos_id)]</field> -->
     </record>  
+
+     <record id="company_search_view" model="ir.ui.view">
+      <field name="model">stock.line</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="company_id"/>
+          <filter name="company" string="group by company" icon="terp-project" context="{'group_by':'company_id'}"/>
+        </search>
+      </field>
+    </record>
+
+     <record id="company_search_view" model="ir.ui.view">
+      <field name="model">stock.line</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="company_id"/>
+          <filter name="company" string="group by company" icon="terp-project" context="{'group_by':'company_id'}"/>
+        </search>
+      </field>
+    </record>
     
     <record model="ir.actions.act_window" id="stockLine_action_window">
 
@@ -23,15 +43,7 @@
       <!-- <field name="search_view_id" ref="company_search_view"/> -->
     </record>
 
-    <record id="company_search_view" model="ir.ui.view">
-      <field name="model">stock.line</field>
-      <field name="arch" type="xml">
-        <search>
-          <field name="company_id"/>
-          <filter name="company" string="group by company" icon="terp-project" context="{'group_by':'company_id'}"/>
-        </search>
-      </field>
-    </record>
+
 
     <record model="ir.actions.act_window" id="posTrans_action_window">
       <field name="name">POS Balance</field>
@@ -63,12 +75,11 @@
         <form>
 
           
-            
             <!-- <button name="test_btn" string="EDIT BALANCE" type="object" />
             <button name="test_btn" string="EDIT STOCK" type="object" /> -->
             
-          <button name="update_stock" string="Update Stock" type="object" />
-          <button name="update_balance" string="Update balance" type="object" /> -->
+          <button name="update_stock" string="Update Stock" type="object"  groups="pos_voucher.group_user" />
+          <button name="update_balance" string="Update balance" type="object" groups="pos_voucher.group_user"/> 
           <!-- </header> -->
           <sheet>
             <div name="buttons" class="oe_right oe_button_box">
@@ -104,12 +115,12 @@
               </tree>
             </field>
 
-             <field name="stock_lines" widget="one2many_list">
+             <!-- <field name="stock_lines" widget="one2many_list">
               <tree editable="bottom">
                 <field name="card_id"/>
                 <field name="qty"/>
               </tree>
-            </field>
+            </field> -->
            <!--  <field name="trans_history" widget="one2many_list">
               <tree editable="bottom">
                 <field name="company_id"/>
@@ -260,9 +271,10 @@
           </group>
           </sheet>
            <footer>
+           
             <button name="confirm" string="Confirm" type="object" confirm="Are you sure you want to save this?"/>
             <button string="Cancel" class="oe_link" special="cancel" />
-            
+        
           </footer>
         </form>
       </field>
@@ -337,15 +349,39 @@
     </record>
    <menuitem name="Dynamic Report" id="report_pivot" sequence="10" parent="pos_voucher.menu_root" action="action_pos_report_act_window"/>
  -->
+    
+    <record id= "view_pos_hostiry_report_pivot" model="ir.ui.view">
+      <field name="model">pos_voucher.pos_voucher</field>
+      <field name="arch" type="xml">
+        <pivot string="pos History Analysis">
+          <field name="name" type="row"/>
+          <field name="user_id" type="col"/>
+          <field name="phonenumber" type="col"/>
+          <field name="stock" type="measure"/>
+          <field name="balance" type="measure"/>
+        </pivot>
+      </field>
+    </record>
+     
+    <record id="action_pos_report_act_window" model="ir.actions.act_window">
+      <field name="name">profile</field>
+      <field name="res_model">pos_voucher.pos_voucher</field>
+      <field name="view_mode">pivot</field>
+      <field name="view_type">form</field> 
+      <field name="target">current</field>
+      <!-- <field name="view_id">view_pos_hostiry_report_pivot</field> -->
+    </record>
 
-    <!-- server action to the one above -->
-<!--     
-    <record model="ir.actions.server" id="pos_voucher.action_server">
+    <menuitem name="Daynamic Reports" id="report_pivot"  action="action_pos_report_act_window"/>
+
+    <!-- server action to the one above -->     
+    <!-- <record model="ir.actions.server" id="pos_voucher.action_server">
       <field name="name">pos_voucher server</field>
-      <field name="model_id" ref="model_pos_voucher_pos_voucher"/>
-=======
+      <field name="model_id" ref="model_pos_voucher_pos_voucher"/>  -->
+
+<!-- =======
   <data>
-     explicit list view definition -->
+     explicit list view definition  -->
     <!--
     <record model="ir.ui.view" id="vouchers_pos.list">
       <field name="name">vouchers_pos list</field>
@@ -374,7 +410,6 @@
     <record model="ir.actions.server" id="vouchers_pos.action_server">
       <field name="name">vouchers_pos server</field>
       <field name="model_id" ref="model_vouchers_pos_vouchers_pos"/>
->>>>>>> 38804a03d6ffdf0707a75088965937efa787611a
       <field name="state">code</field>
       <field name="code">
         action = {
@@ -383,7 +418,7 @@
           "res_model": self._name,
         }
       </field>
-<<<<<<< HEAD
+
     </record> -->
     
 
@@ -396,7 +431,7 @@
     <!-- menu categories -->
     
     <menuitem name="Points of Sales" id="pos_voucher.name" parent="pos_voucher.menu_root"  action="pos_voucher.action_window" groups="pos_voucher.group_manager,pos_voucher.group_user"/>
-    <menuitem name="Cards" id="card_menu" parent="pos_voucher.menu_root"  action="card_action_window"  groups="pos_voucher.group_manager"/>
+    <menuitem name="Cards" id="card_menu" parent="pos_voucher.menu_root"  action="card_action_window"  groups="pos_voucher.group_manager,pos_voucher.group_user"/>
     <menuitem name="Companies" id="comp_menu" parent="pos_voucher.menu_root"  action="comapny_action_window"/>
     
     <!-- actions -->

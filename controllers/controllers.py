@@ -102,7 +102,6 @@ class Example(http.Controller):
         print(sale_proces)
         return sale__proces
 
-  
     #     @http.route('/pos/purchase_balance', type='json', auth='public',csrf=False)
     # def purchase_balance(self, *args, **kwargs):
     #     purchase_proces =  request.env['balance.value']balance.value.sudo().create({
