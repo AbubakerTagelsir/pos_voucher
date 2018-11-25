@@ -1,0 +1,143 @@
+ <odoo>
+  <data>
+
+
+    <record id="pos_report_view" model="ir.ui.view">
+    <field name="name">pos_voucher Wizard</field>
+    <field name="model">pos_voucher.wizard</field>
+    <field name="arch" type="xml">
+       <form>
+          <!-- Form design for your fields -->
+          <sheet>
+            <group>
+              <field name="start_date"/>
+              <field name="end_date"/>
+              <field name="name"/>
+            </group>
+
+             <field name="stock_lines" widget="one2many_list">
+              <tree>
+                <field name="card_id"/>
+                <field name="qty"/>
+              </tree>
+             </field>
+
+          </sheet>
+          <footer>
+            <button type="object" name="check_report" class="oe_highlight" string="Print" />
+            <button special="cancel" string="Cancel" class="oe_link"/>
+          </footer>
+
+       </form>
+    </field>
+    </record>
+
+    <record id="pos_wizard_action_window" model="ir.actions.act_window">
+    <field name="name">Generate pos Report</field>
+    <field name="res_model">pos_voucher.wizard</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="pos_report_view"/>
+    <field name="target">new</field>
+</record>
+
+<!-- <report 
+  id="pos_report_test"
+  model="pos_voucher.pos_voucher"
+  string="Stock History"
+  report_type="qweb-html"
+  name="pos_voucher.test_template"/>
+
+<template id="pos_voucher.test_template">
+  <t t-call="web.html_container">
+    <t t-call="web.internal_layout">
+      <div class="page">
+        <t t-foreach="docs" t-as="doc">
+          
+          <div class="row">
+            <div class="col-md-12">
+              <h1 style="text-align:center;"><span t-field="doc.name"/></h1>
+              <t t-foreach="doc.stock_lines" t-as="stockLine">
+              <table>
+                  <tr>
+                      <td><span t-field="stockLine.trans_date"/></td>
+                      <td><span t-field="stockLine.card_id.name"/></td>
+                      <td><span t-field="stockLine.qty"/></td>
+                  </tr>
+              </table>
+
+            </t>
+            </div>
+          </div>
+
+          
+        </t>
+      </div>
+    </t>
+  </t>
+</template>
+
+ -->
+  <report 
+      id="dynamic_pos_pdf_report"
+      model="pos_voucher.pos_voucher"
+      string="Stock History"
+      report_type="qweb-pdf"
+      name="pos_voucher.template_history"
+      />
+
+    <!-- <record id="pos_wizard_form" model="ir.ui.view">
+      <field name='name'>Wizard Form</field>
+      <field name='model'>pos_voucher.pos_voucher</field>
+      <field name='arch' type='xml'>
+        <form>
+            <group>
+              <field name="start_date"/>
+              <field name="end_date"/>
+              <field name="name"/>
+            </group>
+            <footer>
+              <button type="action" name="pos.report" string="print" class="oe_highlight"/>
+              <button class="oe_link" string="Cancel" special="cancel"/>
+            </footer>
+        </form>
+      </field>
+    </record> -->
+
+
+    <template id="template_history">
+      <t t-call="web.html_container">
+        <t t-call="web.internal_layout">
+          <div class="page">
+            <t t-foreach="docs" t-as="doc">
+              
+              <div class="row">
+                <div class="col-md-12">
+                  <h1 style="text-align:center;">Abubaker Tagelsir<span t-field="doc.name"/></h1>
+                  <t t-foreach="doc.stock_lines" t-as="stockLine">
+                  <table>
+                      <tr>
+                          <td><span t-field="stockLine.trans_date"/></td>
+                          <td><span t-field="stockLine.card_id.name"/></td>
+                          <td><span t-field="stockLine.qty"/></td>
+                      </tr>
+                  </table>
+
+                </t>
+                </div>
+              </div>
+
+              
+            </t>
+          </div>
+        </t>
+      </t>
+    </template>
+
+    <!-- <menuitem id="test_menu" name="test report" action="pos_report_test"/> -->
+
+
+
+</data>
+</odoo>

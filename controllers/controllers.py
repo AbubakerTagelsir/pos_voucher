@@ -102,6 +102,18 @@ class Example(http.Controller):
         print(sale_proces)
         return sale__proces
 
+
+
+    @http.route('/pos/balance_voucher', type='json', auth='public',csrf=False)
+    def balance_vouchers(self, *args, **kwargs):
+        balance_proces =  request.env['update_balance'].sudo().create({
+            # 'company_id': request.params["company_name"],
+            # 'pos_id': request.params["card_value"],
+            # 'balance': request.params["balance"],
+            })
+        print(balance_proces)
+        return balance__proces
+
     #     @http.route('/pos/purchase_balance', type='json', auth='public',csrf=False)
     # def purchase_balance(self, *args, **kwargs):
     #     purchase_proces =  request.env['balance.value']balance.value.sudo().create({
