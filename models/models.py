@@ -22,7 +22,17 @@ class POSVoucher(models.Model):
 			
 
 	start_date = fields.Date()
-	end_date = fields.Date()	
+	end_date = fields.Date()
+
+	@api.onchange('name')
+	def get_stock_lines(self):
+		print()	
+		print()	
+		print()	
+		print(self.stock_lines)	
+		print()	
+		print()	
+		print()	
 
 	def test_btn(self):
 	    comp_obj = self.env['company.company']
@@ -240,8 +250,20 @@ class pos_voucher_wizard(models.TransientModel):
     _description = "POS Voucher Wizard"
     start_date = fields.Date(default=fields.Date.today)
     end_date = fields.Date(default=fields.Date.today)
-    name = fields.Many2one('pos_voucher.pos_voucher')
-    stock_lines = fields.One2many('stock.line', 'pos_id', "Lines")
+    pos_name = fields.Many2one('pos_voucher.pos_voucher')
+    stock_lines = fields.One2many('stock.value', 'pos_id', "Lines",compute="get_stock_lines")
+
+    @api.onchange('pos_name')
+    def get_stock_lines(self):
+    	self.stock_lines = self.pos_name.company
+    	print()
+    	print()
+    	print(self.pos_name.name)
+    	print(self.pos_name.company)
+    	print(self.stock_lines)
+    	print()
+    	print()
+    	print()
 
   #   @api.model
   #   def render_html(self, docids, data=None):
@@ -271,49 +293,49 @@ class pos_voucher_wizard(models.TransientModel):
 		# }
   #   	return report_obj.render('pos_voucher.report_posreport',docargs)
 
-    @api.multi
-    def check_report(self):
-    	data = {}
-    	data['model'] = self.env.context.get('active_model', 'pos_voucher.pos_voucher')
-    	data['form'] = self.read(['name','start_date','end_date'])[0]
-    	data['ids'] = self.env.context.get('active_ids', [])
-    	used_context = data['form']
-    	data['form']['used_context'] = dict(used_context, lang=self.env.context.get('lang') or 'en_US')
-    	print("check report: ", data)
-    	return self._print_report(data)
+    # @api.multi
+    # def check_report(self):
+    # 	data = {}
+    # 	data['model'] = self.env.context.get('active_model', 'pos_voucher.pos_voucher')
+    # 	data['form'] = self.read(['name','start_date','end_date'])[0]
+    # 	data['ids'] = self.env.context.get('active_ids', [])
+    # 	used_context = data['form']
+    # 	data['form']['used_context'] = dict(used_context, lang=self.env.context.get('lang') or 'en_US')
+    # 	print("check report: ", data)
+    # 	return self._print_report(data)
 
-    def _print_report(self, data):
-    	data['form'].update(self.read(['name','start_date','end_date'])[0])
-    	print("print report: ", data)
-    	return self.env.ref('pos_voucher.dynamic_pos_pdf_report').report_action(self, data=data, config=False)
+    # def _print_report(self, data):
+    # 	data['form'].update(self.read(['name','start_date','end_date'])[0])
+    # 	print("print report: ", data)
+    # 	return self.env.ref('pos_voucher.dynamic_pos_pdf_report').report_action(self, data=data, config=False)
 
-    @api.model
-    def render_html(self, docids, data=None):
-    	self.model = self.env.context.get('active_model')
-    	docs = self.env[self.model].browse(self.env.context.get('active_id'))
-    	print("------------------------------------")
-    	print("------------------------------------")
-    	print("------------------------------------")
-    	print(docs)
+    # @api.model
+    # def render_html(self, docids, data=None):
+    # 	self.model = self.env.context.get('active_model')
+    # 	docs = self.env[self.model].browse(self.env.context.get('active_id'))
+    # 	print("------------------------------------")
+    # 	print("------------------------------------")
+    # 	print("------------------------------------")
+    # 	print(docs)
 
 
     	
 
-    	stock_records = []
-    	if docs.start_date and docs.end_date:
-    		for l in stock_lines:
-    			if parse(docs.date_from) <= parse(order.date_order) and parse(docs.date_to) >= parse(order.date_order):
-    				stock_records.append(l)
-    			else:
-    				raise UserError("please enter duration")
-    	docargs = {
-			'doc_ids': self.ids,
-			'doc_model': self.model,
-			'docs': docs,
-			'time':time,
-			'stock_records':stock_records
-		}
-    	return report_obj.render('module.report_name',docargs)
+  #   	stock_records = []
+  #   	if docs.start_date and docs.end_date:
+  #   		for l in stock_lines:
+  #   			if parse(docs.date_from) <= parse(order.date_order) and parse(docs.date_to) >= parse(order.date_order):
+  #   				stock_records.append(l)
+  #   			else:
+  #   				raise UserError("please enter duration")
+  #   	docargs = {
+		# 	'doc_ids': self.ids,
+		# 	'doc_model': self.model,
+		# 	'docs': docs,
+		# 	'time':time,
+		# 	'stock_records':stock_records
+		# }
+  #   	return report_obj.render('module.report_name',docargs)
 class demo_access_rights(models.Model):
     _name = 'demo.access.rights'
     _rec_name = 'name'

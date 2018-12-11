@@ -78,8 +78,10 @@
             <!-- <button name="test_btn" string="EDIT BALANCE" type="object" />
             <button name="test_btn" string="EDIT STOCK" type="object" /> -->
             
-          <button name="update_stock" string="Update Stock" type="object"  groups="pos_voucher.group_user" />
-          <button name="update_balance" string="Update balance" type="object" groups="pos_voucher.group_user"/> 
+          <button name="update_stock" string="Update Stock" type="object"  />
+            <!-- groups="pos_voucher.group_user" /> -->
+          <button name="update_balance" string="Update balance" type="object" />
+            <!-- groups="pos_voucher.group_user"/>  -->
           <!-- </header> -->
           <sheet>
             <div name="buttons" class="oe_right oe_button_box">
