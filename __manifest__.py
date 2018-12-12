@@ -26,13 +26,17 @@
     'data': [
         'security/user_groups.xml',
         'security/ir.model.access.csv',
+        'views/reports.xml',
         'views/views.xml',
         'reports/pos_voucher_report.xml',
         'views/templates.xml',
         'views/example_webpage.xml',
+	    
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
     ],
+    'application':True,
 }
+
